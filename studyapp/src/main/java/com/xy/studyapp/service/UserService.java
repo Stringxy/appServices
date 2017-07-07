@@ -7,6 +7,7 @@ import com.xy.studyapp.entity.security.User;
  */
 public interface UserService {
 
-    User findByName(String name);
-    User login(String username,String password);
+    User findByName(String name) throws Exception;
+    User login(String username,String password)  throws Exception;
+    boolean insert(User user) throws Exception;
 }

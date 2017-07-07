@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.UUID;
 
 /**
  * Created by xy on 2017/6/26.
@@ -21,6 +22,10 @@ public class ResourceRole implements Serializable{
     private String resourceId;
     @Column(name="role_id",length=32)
     private String roleId;
+
+    public ResourceRole() {
+        this.id= UUID.randomUUID().toString().replace("-","");
+    }
 
     @Override
     public String toString() {

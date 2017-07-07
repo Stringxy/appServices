@@ -2,6 +2,7 @@ package com.xy.studyapp.entity.security;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.UUID;
 
 /**
  * Created by xy on 2017/6/26.
@@ -17,6 +18,10 @@ public class Resource implements Serializable{
     private String url;
     @Column(name="name",length=32)
     private String name;
+
+    public Resource() {
+        this.id = UUID.randomUUID().toString().replace("-","");;
+    }
 
     @Override
     public String toString() {

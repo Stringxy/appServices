@@ -2,6 +2,7 @@ package com.xy.studyapp.entity.security;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.UUID;
 
 /**
  * Created by xy on 2017/6/23.
@@ -26,6 +27,10 @@ public class Role implements Serializable{
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    public Role() {
+        this.id= UUID.randomUUID().toString().replace("-","");
     }
 
     public String getId() {

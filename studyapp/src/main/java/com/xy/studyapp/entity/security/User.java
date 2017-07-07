@@ -13,7 +13,6 @@ import java.util.UUID;
 public class User implements Serializable{
     private static final long serialVersionUID = 8208666454898720322L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", unique = true, nullable = false)
     private String id;
     @Column(name = "username", length = 120)
@@ -29,9 +28,16 @@ public class User implements Serializable{
     private String nickName;
     @Column(name = "role_id", length = 32)
     private String roleId;
+    @Column(name = "mobile", length = 32)
+    private String mobile;
+    @Column(name = "level")
+    private Integer level;
+    @Column(name = "score")
+    private Integer score;
 
     public User() {
         this.id= UUID.randomUUID().toString().replace("-","");
+        this.createTime=new Date();
     }
 
     public String getId() {
@@ -90,16 +96,27 @@ public class User implements Serializable{
         this.roleId = roleId;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id='" + id + '\'' +
-                ", userName='" + userName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", createTime=" + createTime +
-                ", nickName='" + nickName + '\'' +
-                ", roleId='" + roleId + '\'' +
-                '}';
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
     }
 }

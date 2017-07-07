@@ -20,7 +20,12 @@ public class CustomUserDetailsService  implements UserDetailsService {
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         //SysUser对应数据库中的用户表，是最终存储用户和密码的表，可自定义
         //本例使用SysUser中的name作为用户名:
-        User user = userService.findByName(userName);
+        User user = null;
+        try {
+            user = userService.findByName(userName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         if (user == null) {
             throw new UsernameNotFoundException("UserName " + userName + " not found");
         }

@@ -15,12 +15,17 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
     @Override
-    public User findByName(String name) {
+    public User findByName(String name) throws Exception {
         return userRepository.findByUserName(name);
     }
 
     @Override
-    public User login(String username, String password) {
+    public User login(String username, String password) throws Exception {
         return userRepository.findByUserNameAndPassword(username,password);
+    }
+
+    @Override
+    public boolean insert(User user) throws Exception{
+        return userRepository.save(user)!=null;
     }
 }
