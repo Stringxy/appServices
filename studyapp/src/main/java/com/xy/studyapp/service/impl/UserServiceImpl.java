@@ -1,5 +1,6 @@
 package com.xy.studyapp.service.impl;
 
+import com.xy.studyapp.common.utils.MD5Util;
 import com.xy.studyapp.entity.security.User;
 import com.xy.studyapp.repository.security.UserRepository;
 import com.xy.studyapp.service.UserService;
@@ -21,11 +22,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User login(String username, String password) throws Exception {
+        password=MD5Util.GetMD5Code(password);
         return userRepository.findByUserNameAndPassword(username,password);
     }
 
     @Override
     public boolean insert(User user) throws Exception{
+        user.setPassword(MD5Util.GetMD5Code(user.getPassword()));
         return userRepository.save(user)!=null;
     }
 }

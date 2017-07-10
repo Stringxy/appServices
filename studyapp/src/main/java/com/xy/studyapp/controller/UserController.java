@@ -25,7 +25,7 @@ public class UserController {
 
     Logger logger=Logger.getLogger(UserController.class);
 
-    @RequestMapping("/findByName/{name}")
+    @RequestMapping(value = "/findByName/{name}",method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "账号查询（根据用户名）", notes = "")
     BaseResp home(@PathVariable String name) {
@@ -34,7 +34,11 @@ public class UserController {
         try {
             User user=userService.findByName(name);
             BaseResp.setResp(true,baseResp);
-            baseResp.setDetail(user);
+            if(user==null){
+                baseResp.setResultNote("当前没有记录。");
+            }else {
+                baseResp.setDetail(user);
+            }
             return baseResp;
         } catch (Exception e) {
             logger.error("---->>  login faild",e);

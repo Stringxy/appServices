@@ -43,7 +43,7 @@ public class AnswerController {
         }
     }
 
-    @RequestMapping("/findAll")
+    @RequestMapping(value = "/findAll",method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "全查询提问--问题回复", notes = "")
     BaseResp home() {
@@ -52,7 +52,11 @@ public class AnswerController {
         try {
             List<Answer> answers=answerService.findAll();
             BaseResp.setResp(true,baseResp);
-            baseResp.setDetail(answers);
+            if(answers==null||answers.size()<1){
+                baseResp.setResultNote("当前没有记录。");
+            }else {
+                baseResp.setDetail(answers);
+            }
             return baseResp;
         } catch (Exception e) {
             logger.error("---->>  问题回复查询异常",e);

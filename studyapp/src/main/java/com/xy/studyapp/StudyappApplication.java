@@ -1,13 +1,14 @@
 package com.xy.studyapp;
 
+import com.xy.studyapp.fliter.ControllFilter;
 import com.xy.studyapp.security.Appctx;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Bean;
+
 import org.springframework.web.WebApplicationInitializer;
 //@Configuration
 //@ComponentScan
@@ -24,5 +25,17 @@ public class StudyappApplication  extends SpringBootServletInitializer implement
 		SpringApplication app=new SpringApplication(StudyappApplication.class);
 
 		Appctx.ctx=app.run(args);
+	}
+
+	@Bean
+	public FilterRegistrationBean testFilterRegistration() {
+
+		FilterRegistrationBean registration = new FilterRegistrationBean();
+		registration.setFilter(new ControllFilter());
+		registration.addUrlPatterns("/*");
+		registration.addInitParameter("paramName", "paramValue");
+		registration.setName("controllFilter");
+		registration.setOrder(1);
+		return registration;
 	}
 }

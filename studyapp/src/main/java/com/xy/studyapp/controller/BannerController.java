@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,7 +27,7 @@ public class BannerController  {
     private BannerService bannerService;
     Logger logger=Logger.getLogger(BannerController.class);
 
-    @RequestMapping("/findAll")
+    @RequestMapping(value = "/findAll",method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "首页banner全查", notes = "")
     BaseResp findAll(){
@@ -35,7 +36,11 @@ public class BannerController  {
         try {
             List<Banner> banners=bannerService.findAll();
             BaseResp.setResp(true,baseResp);
-            baseResp.setDetail(banners);
+            if(banners==null||banners.size()<1){
+                baseResp.setResultNote("当前没有记录。");
+            }else {
+                baseResp.setDetail(banners);
+            }
         } catch (Exception e) {
             logger.error("---->>  find all banner exception",e);
             BaseResp.setResp(false,baseResp);

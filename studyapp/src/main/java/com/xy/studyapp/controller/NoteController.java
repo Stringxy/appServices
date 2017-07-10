@@ -26,7 +26,7 @@ public class NoteController {
 
     Logger logger=Logger.getLogger(NoteController.class);
 
-    @RequestMapping("/findByUserId/{id}")
+    @RequestMapping(value = "/findByUserId/{id}",method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "根据userId查询笔记", notes = "")
     BaseResp home(@PathVariable String id) {
@@ -35,7 +35,11 @@ public class NoteController {
         try {
             List<Note> note=noteService.findByUserId(id);
             BaseResp.setResp(true,baseResp);
-            baseResp.setDetail(note);
+            if(note==null||note.size()<1){
+                baseResp.setResultNote("当前没有记录。");
+            }else {
+                baseResp.setDetail(note);
+            }
             return baseResp;
         } catch (Exception e) {
             logger.error("---->>  笔记查询异常",e);

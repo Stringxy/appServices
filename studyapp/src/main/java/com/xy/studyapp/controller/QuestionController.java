@@ -25,7 +25,7 @@ public class QuestionController {
     private QuestionService questionService;
     Logger logger=Logger.getLogger(QuestionController.class);
 
-    @RequestMapping("/findAll")
+    @RequestMapping(value = "/findAll",method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "提问全查询", notes = "")
     BaseResp home() {
@@ -34,7 +34,11 @@ public class QuestionController {
         try {
             List<Question> questions=questionService.findAll();
             BaseResp.setResp(true,baseResp);
-            baseResp.setDetail(questions);
+            if(questions==null||questions.size()<1){
+                baseResp.setResultNote("当前没有记录。");
+            }else {
+                baseResp.setDetail(questions);
+            }
             return baseResp;
         } catch (Exception e) {
             logger.error("---->>  提问查询异常",e);
