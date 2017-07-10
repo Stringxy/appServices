@@ -55,6 +55,11 @@ public class UserController {
         logger.info("------->>账号登陆：username:"+username+"\tpassword:"+password);
         try {
             User user=userService.login(username,password);
+            if(user==null){
+                baseResp.setResult(ErrCode.VALIDATE_FAILED);
+                baseResp.setResultNote("用户名或密码错误！");
+                return baseResp;
+            }
             BaseResp.setResp(true,baseResp);
             baseResp.setDetail(user);
             return baseResp;
