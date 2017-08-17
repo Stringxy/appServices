@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -25,14 +26,15 @@ public class UserController {
 
     Logger logger=Logger.getLogger(UserController.class);
 
-    @RequestMapping(value = "/findByName/{name}",method = RequestMethod.GET)
+    @RequestMapping(value = "/findById/{name}",method = RequestMethod.GET)
     @ResponseBody
-    @ApiOperation(value = "账号查询（根据用户名）", notes = "")
+    @ApiOperation(value = "账号查询", notes = "")
     BaseResp home(@PathVariable String name) {
         BaseResp baseResp=new BaseResp();
-        logger.info("------->>账号查询：username:"+name);
+        logger.info("------->>账号查询：id:"+name);
         try {
-            User user=userService.findByName(name);
+
+            User user=userService.findByNickName(name);
             BaseResp.setResp(true,baseResp);
             if(user==null){
                 baseResp.setResultNote("当前没有记录。");
@@ -41,7 +43,7 @@ public class UserController {
             }
             return baseResp;
         } catch (Exception e) {
-            logger.error("---->>  login faild",e);
+            logger.error("---->>  findUser faild",e);
             BaseResp.setResp(false,baseResp);
             return baseResp;
         }
@@ -77,6 +79,23 @@ public class UserController {
         BaseResp baseResp=new BaseResp();
         logger.info("------->>账号新增：user:"+user.toString());
         try {
+            if(StringUtils.isEmpty(user.getNickName())||StringUtils.isEmpty(user.getPassword())||StringUtils.isEmpty(user.getUserName())){
+                BaseResp.setResp(false,baseResp);
+                baseResp.setResultNote("至少用户名，昵称，密码不为空！");
+                return  baseResp;
+            }
+            User user1=userService.findByName(user.getUserName());
+            if(user1!=null){
+                BaseResp.setResp(false,baseResp);
+                baseResp.setResultNote("用户名已被占用！");
+                return  baseResp;
+            }
+            user1=userService.findByNickName(user.getNickName());
+            if(user1!=null){
+                BaseResp.setResp(false,baseResp);
+                baseResp.setResultNote("昵称已被占用！");
+                return  baseResp;
+            }
             boolean bool=userService.insert(user);
             BaseResp.setResp(true,baseResp);
             return baseResp;
@@ -86,4 +105,51 @@ public class UserController {
             return baseResp;
         }
     }
+
+
+    @RequestMapping(value = "/updatePortrait",method = RequestMethod.POST)
+    @ResponseBody
+    @ApiOperation(value = "修改头像", notes = "")
+    BaseResp updateImg(@RequestBody User user){
+        BaseResp baseResp=new BaseResp();
+        logger.info("------->>修改头像：user:"+user.toString());
+        try {
+            if(StringUtils.isEmpty(user.getId())||StringUtils.isEmpty(user.getPortrait())){
+                BaseResp.setResp(false,baseResp);
+                baseResp.setResultNote("请传入id，portrait！");
+                return  baseResp;
+            }
+            boolean bool=userService.updateImage(user);
+            BaseResp.setResp(true,baseResp);
+            return baseResp;
+        } catch (Exception e) {
+            logger.error("---->>  update user faild",e);
+            BaseResp.setResp(false,baseResp);
+            return baseResp;
+        }
+    }
+
+    @RequestMapping(value = "/update",method = RequestMethod.POST)
+    @ResponseBody
+    @ApiOperation(value = "账号昵称个性签名修改", notes = "")
+    BaseResp update(@RequestBody User user){
+        BaseResp baseResp=new BaseResp();
+        logger.info("------->>账号昵称个性签名修改：user:"+user.toString());
+        try {
+            if(StringUtils.isEmpty(user.getId())){
+                BaseResp.setResp(false,baseResp);
+                baseResp.setResultNote("修改的用户ID不能为空！");
+                return  baseResp;
+            }
+
+            boolean bool=userService.update(user);
+            BaseResp.setResp(true,baseResp);
+            return baseResp;
+        } catch (Exception e) {
+            logger.error("---->>  update user faild",e);
+            BaseResp.setResp(false,baseResp);
+            return baseResp;
+        }
+    }
+
 }

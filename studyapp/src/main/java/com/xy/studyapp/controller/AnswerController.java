@@ -43,14 +43,14 @@ public class AnswerController {
         }
     }
 
-    @RequestMapping(value = "/findAll",method = RequestMethod.GET)
+    @RequestMapping(value = "/my/{id}",method = RequestMethod.GET)
     @ResponseBody
-    @ApiOperation(value = "全查询提问--问题回复", notes = "")
-    BaseResp home() {
+    @ApiOperation(value = "用户全查询提问--问题回复", notes = "")
+    BaseResp home(@PathVariable String id) {
         BaseResp baseResp=new BaseResp();
-        logger.info("------->>问题回复全查询");
+        logger.info("------->>问题回复用户查询");
         try {
-            List<Answer> answers=answerService.findAll();
+            List<Answer> answers=answerService.findByUserId(id);
             BaseResp.setResp(true,baseResp);
             if(answers==null||answers.size()<1){
                 baseResp.setResultNote("当前没有记录。");

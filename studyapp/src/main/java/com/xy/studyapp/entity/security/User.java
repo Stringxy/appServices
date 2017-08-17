@@ -34,10 +34,47 @@ public class User implements Serializable{
     private Integer level;
     @Column(name = "score")
     private Integer score;
+    @Column(name = "portrait")
+    private String portrait;
+    @Column(name = "sex")
+    private Integer sex;
+    @Column(name = "sign_count")
+    private Integer signCount;
+    @Column(name = "personal_sign")
+    private String personSign;
 
     public User() {
         this.id= UUID.randomUUID().toString().replace("-","");
         this.createTime=new Date();
+        this.signCount=0;
+        this.score=0;
+        this.level=1;
+        this.portrait="avatar0.jpg";
+        this.personSign="这个人很懒，还没有个性签名...";
+    }
+
+    public String getPersonSign() {
+        return personSign;
+    }
+
+    public void setPersonSign(String personSign) {
+        this.personSign = personSign;
+    }
+
+    public Integer getSex() {
+        return sex;
+    }
+
+    public void setSex(Integer sex) {
+        this.sex = sex;
+    }
+
+    public String getPortrait() {
+        return portrait;
+    }
+
+    public void setPortrait(String portrait) {
+        this.portrait = portrait;
     }
 
     public String getId() {
@@ -118,5 +155,13 @@ public class User implements Serializable{
 
     public void setScore(Integer score) {
         this.score = score;
+    }
+
+    public Integer getSignCount() {
+        return signCount;
+    }
+
+    public void setSignCount(Integer signCount) {
+        this.signCount = signCount;
     }
 }

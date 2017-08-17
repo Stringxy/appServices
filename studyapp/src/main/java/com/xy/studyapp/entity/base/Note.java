@@ -26,6 +26,30 @@ public class Note implements Serializable {
     private String userName;
     @Column(name="create_time")
     private Date createTime;
+    @Column(name="note_title")
+    private String title;
+    @Column(name="comment_num")
+    private Integer commentNum;
+    @Column(name="type")
+    private Integer type;//0笔记 1提问
+    @Column(name="img")
+    private String img;
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
 
     public Date getCreateTime() {
         return createTime;
@@ -38,8 +62,24 @@ public class Note implements Serializable {
     public void setDefault(){
         this.id= UUID.randomUUID().toString().replace("-","");
         this.createTime=new Date();
+        this.commentNum=0;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Integer getCommentNum() {
+        return commentNum;
+    }
+
+    public void setCommentNum(Integer commentNum) {
+        this.commentNum = commentNum;
+    }
 
     @Override
     public String toString() {

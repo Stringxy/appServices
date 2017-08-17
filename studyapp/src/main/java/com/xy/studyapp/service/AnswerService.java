@@ -10,4 +10,6 @@ import java.util.List;
 public interface AnswerService {
     List<Answer> findAll()throws Exception;
     boolean add(Answer answer)throws Exception;
+    List<Answer> findByQuestionId(String id) throws  Exception;
+    List<Answer> findByUserId(String id) throws  Exception;
 }
