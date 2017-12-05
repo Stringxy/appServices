@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ser.Serializers;
 import com.xy.studyapp.common.constant.ErrCode;
 import com.xy.studyapp.common.resp.BaseResp;
 import com.xy.studyapp.entity.security.User;
+import com.xy.studyapp.entity.weixin.WeixinUser;
 import com.xy.studyapp.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -52,11 +53,11 @@ public class UserController {
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "账号登陆", notes = "")
-    BaseResp login(@RequestParam String username,@RequestParam  String password){
+    BaseResp login(@RequestBody User user){
         BaseResp baseResp=new BaseResp();
-        logger.info("------->>账号登陆：username:"+username+"\tpassword:"+password);
+        logger.info("------->>账号登陆：username:"+user.getUserName()+"\tpassword:"+user.getPassword());
         try {
-            User user=userService.login(username,password);
+            user=userService.login(user.getUserName(),user.getPassword());
             if(user==null){
                 baseResp.setResult(ErrCode.VALIDATE_FAILED);
                 baseResp.setResultNote("用户名或密码错误！");
@@ -147,6 +148,25 @@ public class UserController {
             return baseResp;
         } catch (Exception e) {
             logger.error("---->>  update user faild",e);
+            BaseResp.setResp(false,baseResp);
+            return baseResp;
+        }
+    }
+
+
+    @RequestMapping(value = "/loginByWeixin",method = RequestMethod.POST)
+    @ResponseBody
+    @ApiOperation(value = "微信账号登陆", notes = "")
+    BaseResp loginByWeixin(@RequestBody WeixinUser weixinUser){
+        BaseResp baseResp=new BaseResp();
+        logger.info("------->>微信账号登陆小程序：user:"+weixinUser.toString());
+        try{
+            WeixinUser user=userService.loginByWeixin(weixinUser);
+            BaseResp.setResp(true,baseResp);
+            baseResp.setDetail(user);
+            return baseResp;
+        }catch (Exception e){
+            logger.error("---->>  weixinuser login faild",e);
             BaseResp.setResp(false,baseResp);
             return baseResp;
         }

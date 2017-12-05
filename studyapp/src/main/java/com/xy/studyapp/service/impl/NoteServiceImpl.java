@@ -59,4 +59,6 @@ public class NoteServiceImpl implements NoteService {
     public List<Note> findNotes() {
         return  noteRepository.findByType(1);
     }
+
+
 }

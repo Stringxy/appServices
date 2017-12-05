@@ -1,6 +1,7 @@
 package com.xy.studyapp.service;
 
 import com.xy.studyapp.entity.security.User;
+import com.xy.studyapp.entity.weixin.WeixinUser;
 
 /**
  * Created by xy on 2017/6/23.
@@ -13,4 +14,6 @@ public interface UserService {
     User findByNickName(String name)throws Exception;
     boolean updateImage(User user)throws Exception;
     boolean update(User user)throws Exception;
+
+    WeixinUser loginByWeixin(WeixinUser user) throws Exception;
 }

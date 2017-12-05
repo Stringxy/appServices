@@ -14,7 +14,7 @@ public class BaseVo implements Serializable{
     public BaseVo() {}
 
     public BaseVo(Integer pageNo, Integer pageSize) {
-        this.pageNo = pageNo;
+        this.pageNo = pageNo-1;
         this.pageSize = pageSize;
     }
 

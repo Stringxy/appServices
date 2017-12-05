@@ -34,6 +34,16 @@ public class Note implements Serializable {
     private Integer type;//0笔记 1提问
     @Column(name="img")
     private String img;
+    @Column(name="views")
+    private Integer views;
+
+    public Integer getViews() {
+        return views;
+    }
+
+    public void setViews(Integer views) {
+        this.views = views;
+    }
 
     public String getImg() {
         return img;
@@ -63,6 +73,7 @@ public class Note implements Serializable {
         this.id= UUID.randomUUID().toString().replace("-","");
         this.createTime=new Date();
         this.commentNum=0;
+        this.views=0;
     }
 
     public String getTitle() {

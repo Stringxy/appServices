@@ -1,13 +1,11 @@
 package com.xy.studyapp.service.impl;
 
 import com.xy.studyapp.common.utils.SortUtil;
-import com.xy.studyapp.entity.base.Answer;
 import com.xy.studyapp.entity.base.Comment;
 import com.xy.studyapp.entity.base.Note;
 import com.xy.studyapp.repository.security.CommentRepository;
 import com.xy.studyapp.repository.security.NoteRepository;
 import com.xy.studyapp.service.CommentService;
-import com.xy.studyapp.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

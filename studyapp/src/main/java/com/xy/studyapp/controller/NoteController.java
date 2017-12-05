@@ -74,7 +74,7 @@ public class NoteController {
                 baseResp.setResultNote("标题或内容不能为空！");
                 return baseResp;
             }
-            boolean bool=noteService.add(note);
+            noteService.add(note);
             BaseResp.setResp(true,baseResp);
             return baseResp;
         } catch (Exception e) {
@@ -111,10 +111,10 @@ public class NoteController {
         }
     }
 
-    @RequestMapping(value = "/findAll",method = RequestMethod.GET)
+    @RequestMapping(value = "/findAll",method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "获取最新笔记", notes = "")
-    BaseResp findNew(BaseVo baseVo) {
+    BaseResp findNew(@RequestBody BaseVo baseVo) {
         BaseResp baseResp=new BaseResp();
         try {
             if(baseVo.getPageNo()==null){
