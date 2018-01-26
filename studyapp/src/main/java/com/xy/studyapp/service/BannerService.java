@@ -10,4 +10,8 @@ import java.util.List;
 public interface BannerService {
 
     List<Banner> findAll() throws Exception;
+
+    void insert(Banner banner)throws Exception;
+
+    void delete(long id)throws Exception;
 }

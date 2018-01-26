@@ -10,9 +10,8 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.WebApplicationInitializer;
-//@Configuration
-//@ComponentScan
-//@EnableAutoConfiguration
+
+
 @EnableTransactionManagement
 @SpringBootApplication
 public class StudyappApplication  extends SpringBootServletInitializer implements WebApplicationInitializer {

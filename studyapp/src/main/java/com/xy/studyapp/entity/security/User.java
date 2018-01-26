@@ -10,24 +10,24 @@ import java.util.UUID;
  */
 @Entity
 @Table(name = "t_user")
-public class User implements Serializable{
+public class User implements Serializable {
     private static final long serialVersionUID = 8208666454898720322L;
     @Id
     @Column(name = "user_id", unique = true, nullable = false)
     private String id;
     @Column(name = "username", length = 120)
-    private String userName; //用户名
+    private String userName;
     @Column(name = "email", length = 50)
-    private String email;//用户邮箱
+    private String email;
     @Column(name = "password", length = 120)
-    private String password;//用户密码
+    private String password;
     @Temporal(TemporalType.DATE)
     @Column(name = "create_time", length = 10)
-    private Date createTime;//时间
+    private Date createTime;
     @Column(name = "nickname", length = 32)
     private String nickName;
     @Column(name = "role_id", length = 32)
-    private String roleId;
+    private Integer roleId;
     @Column(name = "mobile", length = 32)
     private String mobile;
     @Column(name = "level")
@@ -42,15 +42,27 @@ public class User implements Serializable{
     private Integer signCount;
     @Column(name = "personal_sign")
     private String personSign;
+    @Column(name = "status")
+    private Integer status;
 
     public User() {
-        this.id= UUID.randomUUID().toString().replace("-","");
-        this.createTime=new Date();
-        this.signCount=0;
-        this.score=0;
-        this.level=1;
-        this.portrait="avatar0.jpg";
-        this.personSign="这个人很懒，还没有个性签名...";
+        this.id = UUID.randomUUID().toString().replace("-", "");
+        this.createTime = new Date();
+        this.signCount = 0;
+        this.score = 0;
+        this.level = 1;
+        this.portrait = "avatar0.jpg";
+        this.personSign = "这个人很懒，还没有个性签名...";
+        this.status = 1;
+        this.roleId = 1;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public String getPersonSign() {
@@ -125,11 +137,11 @@ public class User implements Serializable{
         this.nickName = nickName;
     }
 
-    public String getRoleId() {
+    public Integer getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(String roleId) {
+    public void setRoleId(Integer roleId) {
         this.roleId = roleId;
     }
 

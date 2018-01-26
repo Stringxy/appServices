@@ -13,4 +13,5 @@ public interface CommentService {
     List<Comment> findByNoteId(String id)throws Exception;
     boolean add(Comment comment)throws Exception;
     List<Comment> findByUserId(String id) throws  Exception;
+    void delete(String id)throws Exception;
 }

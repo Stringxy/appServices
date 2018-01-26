@@ -60,5 +60,17 @@ public class NoteServiceImpl implements NoteService {
         return  noteRepository.findByType(1);
     }
 
+    @Override
+    public void delete(String id) throws Exception{
+         noteRepository.delete(id);
+    }
 
+    @Override
+    public boolean update(Note note) throws Exception {
+        Note oldNote=noteRepository.findById(note.getId());
+        if(oldNote==null){
+            return false;
+        }
+        return noteRepository.save(note)!=null;
+    }
 }

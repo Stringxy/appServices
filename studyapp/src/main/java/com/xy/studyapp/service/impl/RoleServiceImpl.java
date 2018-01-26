@@ -6,6 +6,8 @@ import com.xy.studyapp.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by xy on 2017/6/23.
  */
@@ -16,5 +18,20 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Role findById(String roleId) {
         return roleRepository.findById(roleId);
+    }
+
+    @Override
+    public List<Role> findAll() {
+        return roleRepository.findAll();
+    }
+
+    @Override
+    public boolean insert(Role role) {
+        return roleRepository.save(role)!=null;
+    }
+
+    @Override
+    public void delete(long id) throws Exception{
+         roleRepository.delete(id);
     }
 }

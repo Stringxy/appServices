@@ -32,7 +32,7 @@ public class CustomInvocationSecurityMetadataSourceService implements
         List<String> query = new ArrayList<String>();
         if (list != null && list.size() > 0) {
             for (Role sr : list) {
-                String name = sr.getId();
+                String name = String.valueOf(sr.getId());
                 query.add(name);
             }
         }

@@ -39,4 +39,9 @@ public class CommentServiceImpl implements CommentService {
     public List<Comment> findByUserId(String id) throws Exception {
         return commentRepository.findByCommentUser(id, SortUtil.basicSort());
     }
+
+    @Override
+    public void delete(String id) throws Exception {
+        commentRepository.delete(id);
+    }
 }

@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by xy on 2017/7/23.
  */
-public interface CommentRepository  extends JpaRepository<Comment, Long> {
+public interface CommentRepository  extends JpaRepository<Comment, String> {
     List<Comment> findByNoteId(String id, Sort sort);
     List<Comment> findByCommentUser(String id, Sort sort);
 }

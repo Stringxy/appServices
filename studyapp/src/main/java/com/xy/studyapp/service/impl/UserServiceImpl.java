@@ -3,12 +3,13 @@ package com.xy.studyapp.service.impl;
 import com.xy.studyapp.common.utils.Base64;
 import com.xy.studyapp.common.utils.MD5Util;
 import com.xy.studyapp.entity.security.User;
-import com.xy.studyapp.entity.weixin.WeixinUser;
 import com.xy.studyapp.repository.security.UserRepository;
-import com.xy.studyapp.repository.weixin.WeixinUserReponsitory;
 import com.xy.studyapp.service.UserService;
-import com.xy.studyapp.service.weixin.WeixinService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -20,10 +21,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private WeixinUserReponsitory weixinUserReponsitory;
-    @Autowired
-    private WeixinService weixinService;
     @Override
     public User findByName(String name) throws Exception {
         return userRepository.findByUserName(name);
@@ -75,14 +72,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public WeixinUser loginByWeixin(WeixinUser user) throws Exception {
-        WeixinUser nowUser=weixinUserReponsitory.findByNickNameAndAvatarUrl(user.getNickName(),user.getAvatarUrl());
-        if(null==nowUser){
-            user.setOpenid(weixinService.getOpenId(user.getCode()));
-            nowUser= weixinUserReponsitory.save(user);
-        }
-        return nowUser;
+    public  Page<User> findAll(Integer pageNo,Integer pageSize,Sort sort) throws Exception {
+        Pageable pageable=new PageRequest(pageNo,pageSize,sort);
+        Page<User> page=userRepository.findAll(pageable);
+        return page;
     }
+
+
 
 
 }

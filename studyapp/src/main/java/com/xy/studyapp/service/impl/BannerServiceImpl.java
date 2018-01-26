@@ -19,4 +19,14 @@ public class BannerServiceImpl implements BannerService {
     public List<Banner> findAll() throws Exception {
         return bannerRepository.findAll();
     }
+
+    @Override
+    public void insert(Banner banner) throws Exception {
+        bannerRepository.save(banner);
+    }
+
+    @Override
+    public void delete(long id) throws Exception {
+        bannerRepository.delete(id);
+    }
 }

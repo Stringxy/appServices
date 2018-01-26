@@ -16,17 +16,17 @@ public class Banner implements Serializable {
     private static final long serialVersionUID = 8787919374271702090L;
     @Id
     @Column(name="banner_id",length=32)
-    private String id;
+    private long id;
     @Column(name="url",length=255)
     private String url;
     @Column(name="banner_src",length=255)
     private String src;
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 

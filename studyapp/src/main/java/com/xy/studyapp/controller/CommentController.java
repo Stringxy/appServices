@@ -72,4 +72,21 @@ public class CommentController {
         }
     }
 
+    @GetMapping(value = "/delete/{id}")
+    @ResponseBody
+    @ApiOperation(value = "删除评论", notes = "")
+    BaseResp delete(@PathVariable String id) {
+        BaseResp baseResp = new BaseResp();
+        logger.info("------->>删除评论：comment:" + id);
+        try {
+            commentService.delete(id);
+            BaseResp.setResp(true, baseResp);
+            return baseResp;
+        } catch (Exception e) {
+            logger.error("---->>  delete comment faild", e);
+            BaseResp.setResp(false, baseResp);
+            return baseResp;
+        }
+    }
+
 }

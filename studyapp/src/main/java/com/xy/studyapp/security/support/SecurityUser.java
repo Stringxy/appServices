@@ -39,7 +39,7 @@ public class SecurityUser  extends User implements UserDetails {
 
         Collection<GrantedAuthority> authorities = new ArrayList<>();
 
-                SimpleGrantedAuthority authority = new SimpleGrantedAuthority(roleService.findById(this.getRoleId()).getName());
+                SimpleGrantedAuthority authority = new SimpleGrantedAuthority(roleService.findById(String.valueOf(this.getRoleId())).getName());
                 authorities.add(authority);
 
         return authorities;

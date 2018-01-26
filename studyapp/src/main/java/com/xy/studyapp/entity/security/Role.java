@@ -13,8 +13,7 @@ import java.util.UUID;
 public class Role implements Serializable{
     @Id
     @Column (name="role_id",length=32)
-    private String id;
-
+    private long id;
 
     @Column(name="role_name",length=32)
     private String name;//角色名称
@@ -29,15 +28,12 @@ public class Role implements Serializable{
                 '}';
     }
 
-    public Role() {
-        this.id= UUID.randomUUID().toString().replace("-","");
-    }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
